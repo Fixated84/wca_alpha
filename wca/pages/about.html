@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AllStyle Homes</title>
+<link href="../css/styles.css" rel="stylesheet" type="text/css">
+<link href="../css/animate.css" rel="stylesheet" type="text/css">
+
+<script type = "text/javascript" 
+         src = "../js/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+<!--<header>-->
+	 <div class="headerwrapper">
+		 <div class="leftheader"><img id="effectimg" class="displayed" src="../images/logo.png"   alt="AllStyle Homes Logo"></div>
+         <div class="rightheader">
+         <h2>Contact details:<br>
+        255 Serenity Drive <br> 
+        Ph: 07 4153 9876<br></h2> 
+        </div>
+    </div>
+		 
+<nav>
+	 <ul>
+	  <li><a href="../index.html">Home</a></li>
+	  <li><a href="about.html">About</a></li>
+	  <li><a href="design.html">Designs</a></li>
+      <li><a href="ourprocess.html">Our Process</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="testimonials.html">Testimonials</a></li>  
+      <li><a href="contact.html">Contact</a></li>            
+     </ul>
+			
+</nav>
+		
+		
+<!--</header>-->
+
+<!--<section class="cluster cluster-1">-->
+
+
+<!--content wrapper for mainbar and sidebar-->
+ <div class="contentwrapper">
+  <div class="mainbar"> 
+ <h3>AllStyle Homes Bundaberg 	</h3>  
+    <img src="../images/house.jpg" alt="Picture of a House" width="290" height="220" class="TextWrap animated zoomIn">
+ 
+ <p>AllStyle Homes is a family owned business operated by Alex and Sheree Knox. Alex has spent over 25 years in the building industry and together, with Sheree has operated AllStyle Homes for the past 15 years. Alex has a hands-on approach to the business spending much of his time on the job sites. Sheree is a qualified interior designer with a flair for creating designs that continue to wow their clients. Sheree works closely with each client to ensure that the design fits perfectly with the client’s needs. In addition Sheree also looks after the business/finance side of the operation as well as taking a direct role in the business marketing efforts. 
+Alex and Sheree have worked hard to build a business on old-fashioned values and service to ensure they deliver high quality homes every time.  </p>
+  
+ 
+  <img  src="../images/home.jpg" alt="Display Home" class="displayed" width="520" height="200" ><br>
+   
+  </div>
+  
+  <div class="sidebar"> <br>
+
+  
+ <br>
+
+
+ 
+ <a  href="https://greatstartgrant.osr.qld.gov.au/" target="_blank" ><img  class="displayed" src="../images/grant.png" alt="New Start Grant" height="130" width="180">  </a>
+     
+
+      <a  href="../design.html" ><img class="displayed"  src="../images/340.PNG" alt="Home and Land from $340 per week" height="130" width="180">  </a>  
+     
+  
+
+     <a  href="../design.html" ><img class="displayed"  src="../images/land.PNG" alt="Home and land from 270000" height="130" width="180">    </a>
+    
+   
+
+        <a  href="https://greatstartgrant.osr.qld.gov.au/quick-calculate.php" target="_blank" ><img class="displayed"  src="../images/loan.PNG" alt="Loan Calculator" height="130" width="180"></a>     
+    </div>
+   
+  </div>
+ 
+   <div class="footer">  <a href="privacy.html" >© 2012 AllStyle Homes - Copyright and Privacy Information</a> </div>
+
+ 
+<!--</section>-->
+</div>
+<script>
+ var effectimg = document.getElementById("effectimg");
+ 
+window.onload = function(){
+	 
+ effectimg.addEventListener("click", function(){
+ effectimg.className = "displayed animated flipInX";
+ 
+ setTimeout(function() {
+ effectimg.className = "displayed";	 
+ },1500);	 
+ 
+    }	);  
+ 
+ };
+ </script>
+ 
+ <script type="text/javascript">
+// window.onload = function(){
+ var day = new Date();
+  var hr = day.getHours();
+  if ((hr == 18) ||(hr == 19) || (hr == 20) || (hr == 21) || (hr == 22) || (hr == 23)|| (hr == 0)|| (hr == 1)|| (hr == 2)|| (hr == 3)|| (hr == 4)|| (hr == 5)|| (hr == 6)    ) {
+ 
+ var cssnew = document.querySelector("link[href='../css/styles.css']");
+ 
+ cssnew.setAttribute("href", "../css/stylesnew.css");
+ 
+ 
+ }
+ 
+ </script>
+</body>
+</html>
