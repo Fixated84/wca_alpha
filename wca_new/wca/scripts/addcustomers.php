@@ -1,19 +1,126 @@
 <?php
+ 
  session_start();
 if (!isset($_SESSION['username'])) {
  header('location:login.php');
 }
+ 
+$message = "<br><p></p><br>";
+ $fullnameErr = $addressErr = $emailErr = $phoneErr = $error = $error1 = "<br><p></p><br>";
+ 
+ 
+ if ($_SERVER["REQUEST_METHOD"] == "POST") {
+ 	 
+if (empty($_POST["fullname"])) {
+	$fullname = "";
+$fullnameErr = "<p class=\"animated bounce red\">First Name is Required.</p>";
+ 
+$error = true;
+ 
+}else{ 
 
- if(isset($_GET['logout'])) {
- session_unset(); 
-
-// destroy the session 
-session_destroy(); 
-header('Location:login.php');
+$fullname = test_input($_POST["fullname"]);
+if (!preg_match("/^[a-zA-Z ]*$/",$fullname)) {
+      $fullnameErr = "<p class=\"animated bounce red\">Full name requires letters only</p>"; 
+      $error = true;
+	  
+	 
+} else {
+	
+$error = false;	
 }
+}
+if (empty($_POST["address"])) {
+	$address = "";
+$addressErr = "<p class=\"animated bounce red\">Address is Required</p>";
+$error = true;
+ 
+} else {
+
+
+$address = test_input($_POST["address"]);	
+if (!preg_match("/^[a-zA-Z0-9 ]*$/",$address)) {
+      $addressErr = "<p class=\"animated bounce red\">Address requires letters and numbers only</p>"; 
+      $error = true;
+	 
+}else {
+	
+$error = false;	
+}
+} 
+if (empty($_POST["phone"])) {
+	$phone = "";
+$phoneErr = "<p class=\"animated bounce red\">Phone number is Required.</p>";
+ 
+$error = true;
+ 
+}else{ 
+
+$phone = test_input($_POST["phone"]);
+if (!preg_match("/^[0-9 ]*$/",$phone)) {
+      $phoneErr = "<p class=\"animated bounce red\">Phone number requires numbers only</p>"; 
+      $error = true;
+	  
+	 
+} else {
+	
+$error = false;	
+}
+}
+ if (empty($_POST["email"])) {
+	$email = "";
+$emailErr = "<p class=\"animated bounce red\">Email is Required</p>";
+$error = true;
+
+ 
+} else {
+
+
+$email = test_input($_POST["email"]);	
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $emailErr = "<p class=\"animated bounce red\">Invalid email format</p>"; 
+      $error = true;
+ 
+}else {
+	
+$error = false;	
+}
+} 
+
+ } 
+  if (!$error) {
+ 
+
+ include("connect.php");
+ 
+$queryadd = "INSERT INTO Customers (`idCustomers`, `Fullname` ,`Address`,`Phone`,`Email`)
+VALUES (NULL, '$fullname', '$address','$phone','$email')";
+
+$updatedb = mysqli_query($con,$queryadd);
+
+  mysqli_close($con);
+
+ if ($updatedb) {
+	 $message = "";
+ $message = "<br><p class=\"animated bounce green\">You have been successfully added to the mailing list.</p>" ;
+
+ }else{
+	 $message = "";
+   $message = "<br><p class=\"animated bounce red\"> Your information could not be added to the mailing list.</p>";
+
+} 
+ 
+
+ }  
+ function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+ 
+ }  
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -207,55 +314,67 @@ localStorage['lastTime2'] = ""+now;
         
         <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >Welcome to West Coast Autos</h3>  <br>
+       <h3 >West Coast Auto Customer Form</h3>  <br>
 
-         <div class="row">
-           <div class="col-md-4 col-lg-offset-0 col-lg-4">
-             <div class="thumbnail">
-<div class="caption">
-                <h3>Customer Details</h2>
-                <p>This section is to add or remove customers and up date information.<br>
-                </p>
-                <button type="button" class="btn btn-default" onClick="window.location.href='customers.php'">Enter</button>
-</div>
-             </div>
-           </div>
-           
-           <div class="row">
-             <div class="col-md-4 col-lg-offset-0 col-lg-4">
-               <div class="thumbnail">
-<div class="caption">
-  <h3>Vehicle List</h3>
-  <p>This section is to add new or remove existing vehicles.</p>
-  <button type="button" class="btn btn-default" onClick="window.location.href='vehiclelist.php'">Enter</button>
-</div>
-               </div>
-             </div>   
-                 <div class="row">
-             <div class="col-md-4 col-lg-offset-0 col-lg-4">
-               <div class="thumbnail">
-<div class="caption">
-  <h3>Salesmen Details</h3>
-  <p>This section is to add new or remove existing employees.</p>
-                  <button type="button" class="btn btn-default" onClick="window.location.href='salespersons.php'">Enter</button>
-</div>
-               </div>
-             </div>
-           </div>
-           </div>
-         
-         
-         
-               
-         <br>
-         <button type="button" class="btn btn-lg btn-default center-block" onClick="window.location.href='employee.php?logout=1'" value="Log Out">Logout</button>
-         <br>
-         </div>
-</div>
-
+    <form class="loginform"   method="post">
+  <fieldset class="account-info" >
   
-        
-        </div>
+    <label>
+      Full Name
+      <input  type="text"  name="fullname" placeholder="Full Name" value="<?php if (isset($_POST['fullname'])) echo htmlentities($_POST['fullname']); ?>"> 
+    </label> 
+ 
+<label>
+   Address:
+<input type="text" name="address" id="address" placeholder="Address" value="<?php if (isset($_POST['address'])) echo htmlentities($_POST['address']); ?>" />
+ </label>
+ 
+<label>
+ Phone:
+<input type="text" name="phone" id="phone" placeholder="Phone Number" value="<?php if (isset($_POST['phone'])) echo htmlentities($_POST['phone']); ?>" />
+ </label>
+
+<label>
+ Email: 
+<input type="text" name="email" id="email" placeholder="Email Address" value="<?php if (isset($_POST['email'])) echo htmlentities($_POST['email']); ?>" />
+ </label>
+
+ </fieldset>
+  
+    <fieldset class="account-action" >
+    <input type="submit" value="Submit" name="submit" class="btn left">
+  
+  <input type="button" value="Go Back"  onClick="window.location.href='customers.php'" class="btn right">
+     
+  </fieldset>  
+
+ 
+
+ <!--<button type="submit"  name="submit" class="btn btn-sm btn-default" >Submit</button>
+ <button type="button"  name="submit" onClick="window.location.href='employees.php'" class="btn btn-sm btn-default" >Go Back</button>-->
+<!--<input type="submit" value="Submit" /> 
+<input name="Button2" type="button"   onClick="window.location.href='employees.php'" value="Go Back"/>
+--> 
+<!--<input type="button" value="Login" onClick="window.location.href='orderlist.php'"/> 
+-->
+ 
+
+ 
+
+</form>
+<?php
+ 
+ // shows errors
+  
+	 echo $message;
+ echo $fullnameErr .  $addressErr . $emailErr . $phoneErr;
+ 
+?>
+    
+    
+    
+</div>
+     </div>
         
  
         

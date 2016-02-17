@@ -383,7 +383,7 @@ Email: <input type="text" name="updateemail" class="updateemail">
 <FORM name="something" method="post">
   
   <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-6 col-lg-offset-4">
-  <button type="button" class="btn btn-sm btn-default ce" onClick="window.location.href='addcustomer.php'" value="Log Out">Add</button> 
+  <button type="button" class="btn btn-sm btn-default ce" onClick="window.location.href='addcustomers.php'" value="Log Out">Add</button> 
     
          <INPUT type="hidden"  id="hello1" name="email"  class="emailaddr" >
        <!--  <button type="submit"  name="url" class="btn btn-sm btn-default emailaddr" >Remove</button>-->

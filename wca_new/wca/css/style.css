@@ -1,6 +1,15 @@
 @charset "utf-8";
 /* CSS Document */
 
+
+ .formcentre{
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size:0.9rem;
+/*border:1px red solid;*/
+text-align:center;
+	 
+ }
+
 .lefty{
 	float:left;	
 		 

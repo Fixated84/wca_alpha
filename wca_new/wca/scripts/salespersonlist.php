@@ -1,18 +1,4 @@
-<?php
- session_start();
-if (!isset($_SESSION['username'])) {
- header('location:login.php');
-}
-
- if(isset($_GET['logout'])) {
- session_unset(); 
-
-// destroy the session 
-session_destroy(); 
-header('Location:login.php');
-}
-?>
-
+ 
 
 
 <!DOCTYPE html>
@@ -23,41 +9,54 @@ header('Location:login.php');
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../images/icon.ico">
 
-<!--<script type="text/javascript">
-jQuery(document).ready(function($){
- 
-if (sessionStorage.getItem('RockrollOnce') !== 'true') {
-<!--$('body').append('<body>')
-    $("body").removeAttr("onLoad");
-sessionStorage.setItem('RockrollOnce','true');
-}
- 
- 
- 
-});
-</script>-->
-	<script src="../js/jquery-1.11.2.min.js"></script>
-<script type="text/javascript">//<![CDATA[
-$(document).ready(function() {
-var now = (new Date()).getTime();
-var lastTime = 0;
-var lastTimeStr = localStorage['lastTime2'];
-if (lastTimeStr) lastTime = parseInt(lastTimeStr, 30);
-if (now - lastTime > 1*60*1000) {
-// alert("I am an alert box!");
-  //  $("body").removeAttr("onLoad");
-  //$("body").
-   $("body").attr("onLoad","$('#myModal').modal('show');");
-} 
-localStorage['lastTime2'] = ""+now;
-});//]]> 
+   
 
-</script>
+
+
 
     <title>West Coast Auto</title>
     <!-- Bootstrap -->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
+  
+  
+  <script type='text/javascript'>//<![CDATA[ 
+window.onload=function(){
+var btns = document.querySelectorAll('.case')   ,
+
+       
+	     emailaddr = document.querySelector('.emailaddr')  ; 
+  
+
+// looping through the nodelist and attaching eventlisteners
+[].forEach.call(btns, function(btn) {
+    btn.addEventListener('click', function(event) {
+        // fetching the phone number
+    //    var selectedPhone = email.value;
+	       var selectedPhone = event.target.parentNode.previousSibling.previousSibling.textContent;
+	 
+    //var test = document.getElementById('firstname').value
+	
+	// var test = event.target.parentNode.previousSibling.textContent;
+  
+       emailaddr.value = selectedPhone    ; //setting the value
+	  
+	 // update.value =  test;
+	  
+	//    alert(selectedPhone);
+	   
+	 	 
+		 
+    }, false);
+	
+}); 
+}//]]>  
+ 
+</script>
+ 
+   <script>
+window.onorientationchange = function() { location.reload() };
+</script>
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -65,7 +64,10 @@ localStorage['lastTime2'] = ""+now;
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
   </head>
-  <body onLoad="" >
+  
+  
+  
+  <body>
   
    <!--Testing Fix Nav with navbar-fixed-top-->
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -163,7 +165,7 @@ localStorage['lastTime2'] = ""+now;
           <div class="collapse navbar-collapse" id="defaultNavbar1">
             <ul class="nav navbar-nav hello">
             
-              <li ><a href="../index.html">Home<span class="sr-only">(current)</span></a></li>
+              <li ><a href="#">Home<span class="sr-only">(current)</span></a></li>
  
  
   
@@ -207,49 +209,165 @@ localStorage['lastTime2'] = ""+now;
         
         <div class="col-sm-7 col-sm-offset-1 col-lg-offset-1 col-lg-10">
          <hr>
-       <h3 >Welcome to West Coast Autos</h3>  <br>
+       <h3 >West Coast Auto Salespersons</h3>  <br>
+       
+      <SCRIPT type="text/javascript">
+function goToPage(url)
+{
+var initial = "http://localhost/php/removesalesperson";
+var extension = ".php?email=";
 
-         <div class="row">
-           <div class="col-md-4 col-lg-offset-0 col-lg-4">
-             <div class="thumbnail">
-<div class="caption">
-                <h3>Customer Details</h2>
-                <p>This section is to add or remove customers and up date information.<br>
-                </p>
-                <button type="button" class="btn btn-default" onClick="window.location.href='customers.php'">Enter</button>
-</div>
-             </div>
-           </div>
-           
-           <div class="row">
-             <div class="col-md-4 col-lg-offset-0 col-lg-4">
-               <div class="thumbnail">
-<div class="caption">
-  <h3>Vehicle List</h3>
-  <p>This section is to add new or remove existing vehicles.</p>
-  <button type="button" class="btn btn-default" onClick="window.location.href='vehiclelist.php'">Enter</button>
-</div>
-               </div>
-             </div>   
-                 <div class="row">
-             <div class="col-md-4 col-lg-offset-0 col-lg-4">
-               <div class="thumbnail">
-<div class="caption">
-  <h3>Salesmen Details</h3>
-  <p>This section is to add new or remove existing employees.</p>
-                  <button type="button" class="btn btn-default" onClick="window.location.href='salespersons.php'">Enter</button>
-</div>
-               </div>
-             </div>
-           </div>
-           </div>
+document.something.action=initial+extension+url;
+}
+</SCRIPT>
+
+      <table  class="gridtable">
+  <tr>
+<th>Name</th>
+ <th>Phone</th>
+<th>Email</th>
+ <th>Username</th>
+ <!--<th>Password</th>-->
+ <th>Remove</th >
+ <th>Update</th >
+<tr>
+
+
+
+ 
+<?php
+//include('database.php');
+
+ 
+
+
+
+$query = mysql_query("SELECT * FROM salesperson WHERE 1 ");
+ while($row = mysql_fetch_array($query)):
+
+$firstname = $row['name'];
+ $phone = $row['phone'];
+$email = $row['email'];
+ 
+$username = $row['username'];
+//$password = $row['password'];
+  
+ 
+// echo "<td>".$row['email']."</td>";
+//echo "<td>".$row['phone']."</td>";
+//echo "<td>".$row['username']."</td>";
+
+echo "<tr id=\"tr1\">";
+echo "<td>".$row['name']."</td>";
+  echo "<td>".$row['phone']."</td>";
+ echo "<td>".$row['email']."</td>";
+
+  echo "<td>".$row['username']."</td>";
+ // echo "<td>".$row['password']."</td>";
+  echo "<td> <input type=\"checkbox\" class=\"case\" name=\"case[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
+  echo "<td> <input type=\"checkbox\" class=\"updateinfo\" name=\"updateinfo[]\" value=\"\1\" onclick=\"myfunc(this);\" onChange=\"cbChange(this)\"></td>";
+endwhile;
+    
+	/* <?php $testr = $_POST['testcode']?> */
+	 
+	
+   //  $testr = document.getElementById('test').value;
+   // if( isset( $_POST ["test"] )) $testr = $_POST ["test"];
+	
+	//echo $testr;
+  
+ // $testr = document.getElementById('test').value;
+  
+  
+  //   if(isset($_POST['updatename'])){
+	//	   $testr = $_POST['updatename'];
+ //  echo $testr;
+       // echo("You clicked button update!");
+        //and then execute a sql query here
+ //   $updateQuery =   mysql_query("UPDATE `clients` SET `username` = '".$testr."'");
+// }
+ //   else {
+ //   echo" dhur";
+  //  }
+	
+	
+   
+   if (isset($_POST['updatefirstname'])) {
+	   //   echo("You clicked button one!");
+   $fname  = $_POST['updatefirstname'];
+  
+   $emailadd = $_POST['updateemail'];
+   $phonenum = $_POST['updatephone']; 
+
+   $usrname = $_POST['updateusername']; 
+   
+   $help = $_POST['updatehelp']; 
+   
+ // echo $help;
+ 
+ // PRROBLEM MAYBE QUERY LISTING ALL ENTRYS
+ 
+ 
+      $updateQuery =    mysql_query("UPDATE `salesperson` SET `name` = '".$fname."', `phone` = '".$phonenum."', `email` = '".$emailadd."', `username` = '".$usrname."' WHERE `username` = '".$help."'");
+  
+//  echo "<h1>Hello ".$testr."</h1>";
+    
+  
+ $query = mysql_query("SELECT * FROM salesperson WHERE username = '".$usrname."'");
+  while($row = mysql_fetch_array($query)):
+ 
+     
+ 
+ 
+endwhile;
+   } 
+  
+?>
+
+</table><br> 
+        
+         
+  <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-offset-4 col-lg-3">       
          
          
+   <form  class="hideupdate"    method="post">
+Name: <input type="text" name="updatefirstname" class="updatefirstname">
+<br>
+Phone: <input type="text" name="updatephone" class="updatephone">
+<br>
+Email: <input type="text" name="updateemail" class="updateemail">
+
+
+<br>
+<!--Property: <input type="text" name="updateproperty" class="updateproperty">-->
+  
+ 
+Username: <input type="text" name="updateusername" class="updateusername">  
+ <input type="hidden" name="updatehelp" class="updatehelp">  
+<br>
+<!--Password: <input type="text" name="updatepassword" class="updatepassword"> -->
+<!--<input type="submit">--> 
+<br>
+     <button type="submit" class="btn btn-sm btn-default center-block" >Submit</button>
+</form> 
+<br>
+</div> <br>
+     
+ <FORM name="something" method="post" onsubmit="goToPage(this.url.value);">
+  
+  <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-7 col-lg-offset-4">
+  <button type="button" class="btn btn-sm btn-default ce" onClick="window.location.href='addsalesperson.php'" value="Add Salesperson">Add</button> 
+    
+         <INPUT type="hidden"  id="hello1" name="emailaddr"  class="emailaddr1" >
+        <button type="submit"  name="url" class="btn btn-sm btn-default emailaddr" >Remove</button>
+        
+ <button type="button"  name="goback" onClick="window.location.href='employee.php'" class="btn btn-sm btn-default" >Go Back</button>
          
-               
-         <br>
-         <button type="button" class="btn btn-lg btn-default center-block" onClick="window.location.href='employee.php?logout=1'" value="Log Out">Logout</button>
-         <br>
+         <button type="button" class="btn btn-sm btn-default" onClick="window.location.href='password_protect_admin.php?logout=1'" value="Log Out">Logout</button>      
+   </div>     
+ </FORM>         
+         
+         
          </div>
 </div>
 
@@ -278,7 +396,84 @@ localStorage['lastTime2'] = ""+now;
 	<script src="../js/jquery-1.11.2.min.js"></script>
 
 	<!-- Include all compiled plugins (below), or include individual files as needed --> 
+    
+       
+    
+    
 	<script src="../js/bootstrap.js"></script>
+    
+    
+   <script type="text/javascript">
+	  
+	   
+	  
+     $('.updateinfo').click(function(event) {
+		 
+	$('.hideupdate').toggle();
+ 
+		 
+	// var menu = "hide"; 
+  
+	// if (menu == "hide") {
+	// $('.hideupdate').css('display', 'block');
+	 
+	// menu = "hide";
+	 
+	// }else {
+		 
+	//	  $('.hideupdate').css('display', 'none');
+		  
+		//   menu = "show";
+	  
+	  
+	  
+	 //  }
+ 
+	   
+	  firstname = document.querySelector('.updatefirstname'),
+	  lastname = document.querySelector('.updatelastname') ,
+	  email = document.querySelector('.updateemail') ,
+      phonenumber = document.querySelector('.updatephone') ,
+	  property = document.querySelector('.updateproperty') ;
+	  username = document.querySelector('.updateusername') ;
+	  
+	  updatehelp = document.querySelector('.updatehelp') ;  
+	//  passwd = document.querySelector('.updatepassword') ; 
+		 // phone = document.querySelector('$testr') 
+		       
+			    var select1 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+			  //  var select2 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+				
+		       var select3 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent;
+			   
+			   var select4 = event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.textContent; 
+			   
+			//   var select5 = event.target.parentNode.previousSibling.previousSibling.previousSibling.textContent; 
+
+			     var select6 = event.target.parentNode.previousSibling.previousSibling.textContent; 
+				 
+				  var select7 = event.target.parentNode.previousSibling.previousSibling.textContent;
+				 updatehelp
+				 
+				//   var select7 = event.target.parentNode.previousSibling.previousSibling.textContent; 
+			  
+		firstname.value =  select1 ;
+phonenumber.value = select4;
+		email.value =  select3 ;
+ 	
+ 
+		username.value = select6;
+     	 updatehelp.value = select7;
+		 //  alert(select7);
+			  
+    
+		 
+ 
+      
+    });
+   </script>      
+    
+    
     <script type="text/javascript">
 $(document).ready(function() {
 	

@@ -7,7 +7,7 @@ if (!isset($_SESSION['username'])) {
 }
  
 $message = "<br><p></p><br>";
- $manufacturerErr = $modelErr = $categoryErr = $yearErr = $priceErr = $kilometresErr = $colourErr = $registrationErr = $vinErr = $cylindersErr  = $fuelErr = $transmissionErr   = $error = $error1 = "<br><p></p><br>";
+ $manufacturerErr = $modelErr = $categoryErr = $yearErr = $priceErr = $kilometresErr = $colourErr = $registrationErr = $vinErr = $cylindersErr  = $fuelErr = $transmissionErr  = $error = $error1 = "<p></p>";
  
  
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -98,7 +98,7 @@ $error = true;
 
 
 $price = test_input($_POST["price"]);	
-if (!preg_match("/^[0-9 ]*$/",$price)) {
+if (!preg_match("/^[0-9,.]*$/",$price)) {
       $priceErr = "<p class=\"animated bounce red\">Price requires numbers only</p>"; 
       $error = true;
 	 
@@ -117,7 +117,7 @@ $error = true;
 
 
 $kilometres = test_input($_POST["kilometres"]);	
-if (!preg_match("/^[0-9 ]*$/",$kilometres)) {
+if (!preg_match("/^[0-9,.]*$/",$kilometres)) {
       $kilometresErr = "<p class=\"animated bounce red\">Kilometres requires numbers only</p>"; 
       $error = true;
 	 
@@ -296,7 +296,7 @@ $updatedb = mysqli_query($con,$queryadd);
     <!-- Bootstrap -->
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/style.css" rel="stylesheet">
-  
+   <link href="../css/animate.css" rel="stylesheet"> 
   
   
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -671,7 +671,7 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
  
  // shows errors
   
-	 echo $message;
+	 echo $message."<br>";
  echo $manufacturerErr .  $modelErr . $categoryErr . $yearErr . $priceErr . $kilometresErr . $colourErr . $registrationErr . $vinErr . $cylindersErr . $fuelErr . $transmissionErr  ;
    
  
