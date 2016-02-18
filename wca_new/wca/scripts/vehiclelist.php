@@ -1,4 +1,25 @@
+<?php
  
+  session_start();
+if (!isset($_SESSION['username'])) {
+ header('location:login.php');
+}
+  include("connect.php");
+
+ 
+   if($_POST) {
+ $Stocknumber = $_POST['vehicle'];
+ 
+$queryremove = "DELETE FROM Vehiclelist WHERE (`Stocknumber` = '$Stocknumber')";	 
+
+  
+$updatedb = mysqli_query($con,$queryremove);
+
+ mysqli_close($con);
+ 
+  }
+ 
+ ?> 
 
 
 <!DOCTYPE html>
@@ -43,7 +64,7 @@ var btns = document.querySelectorAll('.case')   ,
 	  
 	 // update.value =  test;
 	  
-	//    alert(selectedPhone);
+	  //  alert(selectedPhone);
 	   
 	 	 
 		 
@@ -456,8 +477,8 @@ Transmission:
   <div class="col-sm-3 col-md-9 col-md-offset-2 col-lg-7 col-lg-offset-4">
   <button type="button" class="btn btn-sm btn-default ce" onClick="window.location.href='addsvehicle.php'" value="Add Vehicle">Add</button> 
     
-         <INPUT type="hidden"  id="hello1" name="emailaddr"  class="emailaddr1" >
-        <button type="submit"  name="url" class="btn btn-sm btn-default emailaddr" >Remove</button>
+         <INPUT type="hidden"  id="hello1" name="vehicle"  class="emailaddr" >
+        <button type="submit"    class="btn btn-sm btn-default" >Remove</button>
         
  <button type="button"  name="goback" onClick="window.location.href='employee.php'" class="btn btn-sm btn-default" >Go Back</button>
          

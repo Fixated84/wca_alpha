@@ -7,7 +7,7 @@ if (!isset($_SESSION['username'])) {
 }
  
 $message = "<br><p></p><br>";
- $manufacturerErr = $modelErr = $categoryErr = $yearErr = $priceErr = $kilometresErr = $colourErr = $registrationErr = $vinErr = $cylindersErr  = $fuelErr = $transmissionErr  = $error = $error1 = "<p></p>";
+ $manufacturerErr = $modelErr = $categoryErr = $yearErr = $priceErr = $kilometresErr = $colourErr = $registrationErr = $vinErr = $cylindersErr  = $fuelErr = $transmissionErr  = $error =  "<p></p>";
  
  
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -21,7 +21,7 @@ $error = true;
 }else{ 
 
 $manufacturer = test_input($_POST["manufacturer"]);
-if (!preg_match("/^[a-zA-Z ]*$/",$manufacturer)) {
+if (!preg_match("/^[a-zA-Z]*$/",$manufacturer)) {
       $manufacturerErr = "<p class=\"animated bounce red\">Manufacturer requires letters only</p>"; 
       $error = true;
 	  
@@ -41,7 +41,7 @@ $error = true;
 
 
 $model = test_input($_POST["model"]);	
-if (!preg_match("/^[a-zA-Z0-9 ]*$/",$model)) {
+if (!preg_match("/^[a-zA-Z0-9]*$/",$model)) {
       $modelErr = "<p class=\"animated bounce red\">Model requires letters and numbers only</p>"; 
       $error = true;
 	 
@@ -60,7 +60,7 @@ $error = true;
 
 
 $category = test_input($_POST["category"]);	
-if (!preg_match("/^[a-zA-Z0-9 ]*$/",$category)) {
+if (!preg_match("/^[a-zA-Z0-9]*$/",$category)) {
       $categoryErr = "<p class=\"animated bounce red\">Category requires letters and numbers only</p>"; 
       $error = true;
 	 
@@ -79,7 +79,7 @@ $error = true;
 
 
 $year = test_input($_POST["year"]);	
-if (!preg_match("/^[0-9 ]*$/",$year)) {
+if (!preg_match("/^[0-9]*$/",$year)) {
       $yearErr = "<p class=\"animated bounce red\">Year requires numbers only</p>"; 
       $error = true;
 	 
@@ -136,8 +136,8 @@ $error = true;
 
 
 $colour = test_input($_POST["colour"]);	
-if (!preg_match("/^[a-zA-Z ]*$/",$colour)) {
-      $colourErr = "<p class=\"animated bounce red\">Colour requires numbers only</p>"; 
+if (!preg_match("/^[a-zA-Z]*$/",$colour)) {
+      $colourErr = "<p class=\"animated bounce red\">Colour requires letters only</p>"; 
       $error = true;
 	 
 }else {
@@ -155,7 +155,7 @@ $error = true;
 
 
 $registration = test_input($_POST["registration"]);	
-if (!preg_match("/^[0-9 ]*$/",$registration)) {
+if (!preg_match("/^[0-9]*$/",$registration)) {
       $registrationErr = "<p class=\"animated bounce red\">Registration requires numbers only</p>"; 
       $error = true;
 	 
@@ -174,7 +174,7 @@ $error = true;
 
 
 $vin = test_input($_POST["vin"]);	
-if (!preg_match("/^[0-9 ]*$/",$vin)) {
+if (!preg_match("/^[0-9]*$/",$vin)) {
       $vinErr = "<p class=\"animated bounce red\">Vin requires numbers only</p>"; 
       $error = true;
 	 
@@ -193,7 +193,7 @@ $error = true;
 
 
 $cylinders = test_input($_POST["cylinders"]);	
-if (!preg_match("/^[0-9 ]*$/",$cylinders)) {
+if (!preg_match("/^[0-9]*$/",$cylinders)) {
       $cylindersErr = "<p class=\"animated bounce red\">Cylinders requires numbers only</p>"; 
       $error = true;
 	 
@@ -212,8 +212,8 @@ $error = true;
 
 
 $fuel = test_input($_POST["fuel"]);	
-if (!preg_match("/^[a-zA-Z ]*$/",$fuel)) {
-      $fuelErr = "<p class=\"animated bounce red\">Fuel requires numbers only</p>"; 
+if (!preg_match("/^[a-zA-Z]*$/",$fuel)) {
+      $fuelErr = "<p class=\"animated bounce red\">Fuel requires letters only</p>"; 
       $error = true;
 	 
 }else {
@@ -231,8 +231,8 @@ $error = true;
 
 
 $transmission = test_input($_POST["transmission"]);	
-if (!preg_match("/^[a-zA-Z ]*$/",$transmission)) {
-      $transmissionErr = "<p class=\"animated bounce red\">Transmission requires numbers only</p>"; 
+if (!preg_match("/^[a-zA-Z]*$/",$transmission)) {
+      $transmissionErr = "<p class=\"animated bounce red\">Transmission requires letters only</p>"; 
       $error = true;
 	 
 }else {
@@ -455,25 +455,27 @@ $updatedb = mysqli_query($con,$queryadd);
        
          <div class="row">
         
-        <div class="col-sm-7 col-sm-offset-1 col-lg-3 col-lg-offset-3 hello"> 
+        <div class="col-sm-7 col-sm-offset-1 col-lg-offset-4 col-lg-4"> 
  
-<div>
-
+ 
  
 
-<form id="signupform"   method="post">
+    <form class="loginform formcentre"   method="post">
+  <fieldset class="account-info" >
 <!--<p>
 <label for="stocknumber">Stock No:</label>
 <input type="text" name="stocknumber" id="stocknumber" value="<?php if (isset($_POST['stocknumber'])) echo htmlentities($_POST['stocknumber']); ?>" />
 </p>-->
  
 
-<p>
+ 
 <!--  <label for="manufacturer">Manufacturer:</label>
 <input type="text" name="manufacturer" id="manufacturer" value="<?php if (isset($_POST['manufacturer'])) echo htmlentities($_POST['manufacturer']); ?>" />
 -->
 
-<select id="manufacturer" name="manufacturer" style="width:190px">
+<label>Manufacturer:
+<br>
+<select name="manufacturer">
 <?php 
 
  include("connect.php");
@@ -487,12 +489,11 @@ echo "<option value=\"". $row['Manufacturer'] ."\">" . $row['Manufacturer'] . "<
 }
 ?>
 </select>
+</label>
 
-</p>
-<p>
-<label for="model">Model:</label>
+<label>Model:
 <input type="text" name="model" id="model" value="<?php if (isset($_POST['model'])) echo htmlentities($_POST['model']); ?>" />
-</p>
+</label>
 
 <!--<p>
 <label for="category">Category:</label>
@@ -500,11 +501,12 @@ echo "<option value=\"". $row['Manufacturer'] ."\">" . $row['Manufacturer'] . "<
 </p>-->
 
 
-<p>
+ 
 
- <label for="category">Category:</label><br>
+ <label>Category:
+ <br>
 
-<select id="category" name="category" style="width:190px">
+<select name="category">
 <?php 
 include("connect.php");
 
@@ -517,6 +519,8 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
 }
 ?>  
 </select>
+</label>
+
 <!--  <select id="category" name="category" style="width:190px">
     <option value="Cab Chassi">Cab Chassis</option>
     <option value="Coupe">Coupe</option>
@@ -533,32 +537,28 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
         </select>
         
 -->        
-</p>
-
-<p>
-<label for="year">Year:</label>
+ 
+<label>Year:<br>
 <input type="text" name="year" id="year" value="<?php if (isset($_POST['year'])) echo htmlentities($_POST['year']); ?>" />
-</p>
-<p>
-<label for="price">Price:</label>
+</label>
+
+<label>Price:<br>
 <input type="text" name="price" id="price" value="<?php if (isset($_POST['price'])) echo htmlentities($_POST['price']); ?>" />
-</p>
+</label>
 
-<p>
-<label for="kilometres">Kilometres:</label>
+<label>Kilometres:<br>
 <input type="text" name="kilometres" id="kilometres" value="<?php if (isset($_POST['kilometres'])) echo htmlentities($_POST['kilometres']); ?>" />
-</p>
-
+</label>
 <!--<p>
 <label for="colour">Colour:</label>
 <input type="text" name="colour" id="colour" value="?php if (isset($_POST['colour'])) echo htmlentities($_POST['colour']); ?>" />
 </p>
 -->
-<p>
+ 
 
- <label for="colour">Colour:</label><br>
+ <label>Colour:<br>
 
-  <select id="colour" name="colour" style="width:190px">
+  <select  name="colour" >
     <option value="Beige">Beige</option>
     <option value="Black">Black</option>
      <option value="Blue">Blue</option>  
@@ -577,30 +577,26 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
      <option value="White">White</option>   
      <option value="Yellow">Yellow</option>           
         </select>
-        
-</p>
+</label>
 
-<p>
-<label for="registration">Registration:</label>
+<label >Registration:<br>
 <input type="text" name="registration" id="registration" value="<?php if (isset($_POST['registration'])) echo htmlentities($_POST['registration']); ?>" />
-</p>
+</label>
 
-<p>
-<label for="vin">Vin:   </label><br>
+
+<label>Vin:   <br>
 <input type="text" name="vin" id="vin" value="<?php if (isset($_POST['vin'])) echo htmlentities($_POST['vin']); ?>" />
-</p>
+</label>
 
 <!--<p>
 <label for="cylinders">Cylinders:</label>
 <input type="text" name="cylinders" id="cylinders" value="?php if (isset($_POST['cylinders'])) echo htmlentities($_POST['cylinders']); ?>" />
 </p>
 -->
+ 
+<label>Cylinders:<br>
 
-<p>
-
- <label for="cylinders">Cylinders:</label><br>
-
-  <select id="cylinders" name="cylinders" style="width:190px">
+  <select  name="cylinders" >
 <!--    <option value="0">0</option>
 -->    <option value="1">1</option>
      <option value="2">2</option>  
@@ -615,26 +611,24 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
      <option value="11">11</option>        
      <option value="12">12</option>        
         </select>
-        
-</p>
+ </label>       
+
 
 <!--<p>
 <label for="fuel">Fuel:</label><br>
 <input type="text" name="fuel" id="fuel" value="" /> ?php if (isset($_POST['fuel'])) echo htmlentities($_POST['fuel']); ?></p>-->
 
 
-<p>
+ <label>Fuel:<br>
 
- <label for="fuel">Fuel:</label><br>
-
-  <select id="fuel" name="fuel" style="width:190px">
+  <select name="fuel" >
     <option value="Diesel">Diesel</option>
     <option value="Electric">Electric</option>
      <option value="LPG">LPG</option>  
      <option value="Petrol">Petrol</option>  
      
         </select>
-</p>
+</label>
 
 
 
@@ -643,27 +637,28 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
 <input type="text" name="transmission" id="transmission" value="<" />
 </p>
 ?php if (isset($_POST['transmission'])) echo htmlentities($_POST['transmission']); ?>-->
-<p>
+ 
 
- <label for="transmission">Transmission:</label><br>
+ <label>Transmission:<br>
 
-  <select id="transmission" name="transmission" style="width:190px">
+  <select  name="transmission" >
+      <option value=""></option>
     <option value="Automatic">Automatic</option>
     <option value="Manual">Manual</option>
    
 
      
         </select>
-</p>
+</label>
 
   
-
-<p>
-
+ 
+ </fieldset>
+ <fieldset class="account-action" >
  <button type="submit"  name="submit"   class="btn btn-sm btn-default">Submit</button>
  <button type="button"  name="submit" onClick="window.location.href='vehiclelist.php'" class="btn btn-sm btn-default" >Go Back</button>
+  </fieldset>
  
- </p>
 
 </form>
 
@@ -677,7 +672,7 @@ echo "<option value=\"".$row['Category']."\">". $row['Category'] . "</option>";
  
 ?>
 
- </div>
+  
   </div>
  
 
